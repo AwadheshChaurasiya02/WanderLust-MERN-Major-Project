@@ -1,0 +1,83 @@
+<% layout("/layouts/boilerplate") -%>
+
+    <div clsss="row">
+            <div class="col-8 offset-2">
+    <h3 class="mt-3">Edit Your Listing</h3>
+
+    <form method="POST" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+        
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" id="title" class="form-control" name="listing[title]" value="<%=listing.title%>" required>
+            <div class="valid-feedback">Looks Good!</div>
+            <div class="invalid-feedback">Please provides a valid title</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="listing[description]" id="description" class="form-control" required><%=listing.description%></textarea>
+            <div class="valid-feedback">Looks Good!</div>
+            <div class="invalid-feedback">Please provides a better description</div>
+        </div>
+
+
+        <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" id="category" name="listing[category]" required>
+        <option value="Trending" <%= listing.category === "Trending" ? "selected" : "" %>>Trending</option>
+        <option value="Rooms" <%= listing.category === "Rooms" ? "selected" : "" %>>Rooms</option>
+        <option value="Iconic Cities" <%= listing.category === "Iconic Cities" ? "selected" : "" %>>Iconic Cities</option>
+        <option value="Mountains" <%= listing.category === "Mountains" ? "selected" : "" %>>Mountains</option>
+        <option value="Castles" <%= listing.category === "Castles" ? "selected" : "" %>>Castles</option>
+        <option value="Amazing Pools" <%= listing.category === "Amazing Pools" ? "selected" : "" %>>Amazing Pools</option>
+        <option value="Camping" <%= listing.category === "Camping" ? "selected" : "" %>>Camping</option>
+        <option value="Farms" <%= listing.category === "Farms" ? "selected" : "" %>>Farms</option>
+        <option value="Arctic" <%= listing.category === "Arctic" ? "selected" : "" %>>Arctic</option>
+        <option value="Domes" <%= listing.category === "Domes" ? "selected" : "" %>>Domes</option>
+        <option value="Boats" <%= listing.category === "Boats" ? "selected" : "" %>>Boats</option>
+        </select>
+        <div class="valid-feedback">Looks Good!</div>
+        <div class="invalid-feedback">Please provides a valid category</div>
+        </div>
+
+         <div class="mb-3">
+            <p>Orignal Listing Image</p>
+            <img src="<%=newImageUrl%>">
+        </div>
+      
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload New Image</label>
+            <input type="file" id="image" class="form-control" name="listing[image]">
+            <div class="valid-feedback">Looks Good!</div>
+        </div>
+        
+        <div class="row">
+            <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" id="price" class="form-control" name="listing[price]" value="<%=listing.price%>" required>
+            <div class="valid-feedback">Looks Good!</div>
+            <div class="invalid-feedback">Please provides a valid price</div>
+            </div>
+        
+            <div class="mb-3 col-md-8">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" id="country" class="form-control" name="listing[country]" value="<%=listing.country%>" required>
+            <div class="valid-feedback">Looks Good!</div>
+            <div class="invalid-feedback">Please provides a valid country</div>
+            </div>
+        </div>
+       
+        
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" id="location" class="form-control" name="listing[location]" value="<%=listing.location%>" required>
+            <div class="valid-feedback">Looks Good!</div>
+            <div class="invalid-feedback">Please provides a valid location</div>
+        </div>
+        
+        <button class="btn btn-dark edit-btn mb-3">Edit</button>
+    </form>
+    </div>
+    </div>
+
+
