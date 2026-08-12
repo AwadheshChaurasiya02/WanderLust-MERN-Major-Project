@@ -19,26 +19,40 @@ module.exports.saveRedirecturl=(req,res,next) => {
     next();
 }
 
-module.exports.isOwner=async(req,res,next) => {
+module.exports.isOwner = async(req,res,next) => {
     let {id} = req.params;
-    let listing=await Listing.findById(id);
-    if(!listing.owner._id.equals(res.locals.currUser._id)){
-        req.flash("error","you are not the owner of this listing");
-        return res.redirect(`/listings/${id}`)
+    let listing = await Listing.findById(id);
+
+    if (!listing) {
+        req.flash("error","This product does not exist in NexoraTech");
+        return res.redirect("/listings");
+    }
+
+    if(!listing.owner.equals(res.locals.currUser._id)){
+        req.flash("error","You are not owner of this listing");
+        return res.redirect(`/listings/${id}`);
     }
     next();
 }
 
 
-module.exports.isReviewAuthor=async(req,res,next) => {
-    let {id,reviewId} = req.params;
-    let newReview=await review.findById(reviewId);
-    if(!newReview.author._id.equals(res.locals.currUser._id)){
-        req.flash("error","you are not the author of this review");
-        return res.redirect(`/listings/${id}`)
+module.exports.isReviewAuthor = async (req, res, next) => {
+    let { id, reviewId } = req.params;
+
+    let newReview = await review.findById(reviewId);
+
+    if (!newReview) {
+        req.flash("error", "Review not found");
+        return res.redirect(`/listings/${id}`);
     }
+
+    if (!newReview.author.equals(res.locals.currUser._id)) {
+        req.flash("error", "You are not the author of this review");
+        return res.redirect(`/listings/${id}`);
+    }
+
     next();
-}
+};
 
 
 ////////      for backend  validation      ////////////
